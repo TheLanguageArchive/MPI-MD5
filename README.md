@@ -27,6 +27,9 @@ Replace FOXCreate action with following in flat-deposit.xml:
 		<parameter name="xsl-param-mpi-checksums-dir" value="{$work}/checksums"/>
 	</action>
 
+	
 Next, place ../MDI-MD5/MPI-MD5/flat/deposit/checksum-config.xml file under deposit/policies directory of flat.
+
+
 Next, place ../MDI-MD5/MPI-MD5/flat/deposit/cmd2fox.xsl file under deposit/policies directory of flat.
 
