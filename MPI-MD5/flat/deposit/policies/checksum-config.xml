@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checksum>
+ <file-system>
+   <user>corpman</user>
+   <sys-cmd>/opt/vsm/sbin/slssum</sys-cmd>
+ </file-system>
+ <fallback>
+    <user></user>
+   <sys-cmd>md5sum</sys-cmd>
+ </fallback>
+</checksum>
