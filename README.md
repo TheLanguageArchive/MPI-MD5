@@ -31,5 +31,5 @@ Replace FOXCreate action with following in flat-deposit.xml:
 Next, place ../MDI-MD5/MPI-MD5/flat/deposit/checksum-config.xml file under deposit/policies directory of flat.
 
 
-Next, place ../MDI-MD5/MPI-MD5/flat/deposit/cmd2fox.xsl file under deposit/policies directory of flat.
+Next, place https://github.com/TheLanguageArchive/FLAT-MPI.git/cmd2fox.xsl file under deposit/policies directory of flat.
 
