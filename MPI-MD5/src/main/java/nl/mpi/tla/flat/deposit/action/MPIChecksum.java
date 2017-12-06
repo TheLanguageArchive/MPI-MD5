@@ -126,7 +126,7 @@ public class MPIChecksum extends AbstractAction {
 						br.close();
 						isr.close();
 						res = false;
-					} else if (StringUtils.isEmpty(line) || line == "00000000000000000000000000000000") {
+					} else if (StringUtils.isEmpty(line) || line.equals("00000000000000000000000000000000")) {
 						br.close();
 						isr.close();
 						// md5checksum is not present yet. hence calculate
@@ -153,7 +153,7 @@ public class MPIChecksum extends AbstractAction {
 							logger.debug("Calculate md5Checksum Command: " + calcCommand.toString());
 						}
 
-						ProcessBuilder calcPb = new ProcessBuilder(calcCommand);
+						ProcessBuilder calcPb = new ProcessBuilder("sh","-c","ssh " + fallbackLogin + " '" + fallbackCommand+ " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
 						calcPb.directory(new File(dir.getAbsolutePath()));
 						calcPb.redirectErrorStream(true);
 
