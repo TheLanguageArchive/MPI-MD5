@@ -105,7 +105,7 @@ public class MPIChecksum extends AbstractAction {
 					command.add("ssh " + login + " '" + sysCommand + " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
 					logger.debug("Command: " + command.toString());
 
-					ProcessBuilder pb = new ProcessBuilder(command);
+					ProcessBuilder pb = new ProcessBuilder("sh","-c","ssh " + login + " '" + sysCommand + " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
 					pb.directory(new File(dir.getAbsolutePath()));
 					pb.redirectErrorStream(true);
 
