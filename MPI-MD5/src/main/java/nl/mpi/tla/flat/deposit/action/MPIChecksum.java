@@ -100,12 +100,12 @@ public class MPIChecksum extends AbstractAction {
 			for (Resource currentResource : resources) {
 				if (currentResource.hasFile()) {
 					File currentFile = currentResource.getFile();
-					// execute command: ssh user@host '/opt/vsm/sbin/slssum filepath'
-					List<String> command = new ArrayList<String>();
-					command.add("ssh " + login + " '" + sysCommand + " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
+					String prefixCommand = "sh -c";
+					// execute command: ssh user@host '/opt/vsm/sbin/slssum "filepath"'
+					String command = "ssh " + login + " '" + sysCommand + " \"" + currentFile.getAbsolutePath() + "\"'";
 					logger.debug("Command: " + command.toString());
 
-					ProcessBuilder pb = new ProcessBuilder("sh","-c","ssh " + login + " '" + sysCommand + " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
+					ProcessBuilder pb = new ProcessBuilder(prefixCommand,command);
 					pb.directory(new File(dir.getAbsolutePath()));
 					pb.redirectErrorStream(true);
 
@@ -143,17 +143,16 @@ public class MPIChecksum extends AbstractAction {
 									"FAILED! No credentials found in file checksum-config.xml for Fallback situation");
 						}
 
-						List<String> calcCommand = new ArrayList<String>();
+						String calcCommand;
 						if (StringUtils.isEmpty(fallbackLogin)) {
-							calcCommand.add(fallbackCommand);
-							calcCommand.add(currentFile.getAbsolutePath());
+							calcCommand = fallbackCommand + currentFile.getAbsolutePath();
 							logger.debug("Calculate md5Checksum Command: " + calcCommand.toString());
 						} else {
-							calcCommand.add("ssh " + fallbackLogin + " '" + fallbackCommand+ " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
+							calcCommand = "ssh " + fallbackLogin + " '" + fallbackCommand+ " \"" + currentFile.getAbsolutePath() + "\"'";
 							logger.debug("Calculate md5Checksum Command: " + calcCommand.toString());
 						}
 
-						ProcessBuilder calcPb = new ProcessBuilder("sh","-c","ssh " + fallbackLogin + " '" + fallbackCommand+ " " + "\"" + currentFile.getAbsolutePath() + "\"" + "'");
+						ProcessBuilder calcPb = new ProcessBuilder(prefixCommand,calcCommand);
 						calcPb.directory(new File(dir.getAbsolutePath()));
 						calcPb.redirectErrorStream(true);
 
