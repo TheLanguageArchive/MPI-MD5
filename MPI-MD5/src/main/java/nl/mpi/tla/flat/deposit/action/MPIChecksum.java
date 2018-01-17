@@ -100,12 +100,11 @@ public class MPIChecksum extends AbstractAction {
 			for (Resource currentResource : resources) {
 				if (currentResource.hasFile()) {
 					File currentFile = currentResource.getFile();
-					String prefixCommand = "sh -c";
 					// execute command: ssh user@host '/opt/vsm/sbin/slssum "filepath"'
 					String command = "ssh " + login + " '" + sysCommand + " \"" + currentFile.getAbsolutePath() + "\"'";
 					logger.debug("Command: " + command.toString());
 
-					ProcessBuilder pb = new ProcessBuilder(prefixCommand,command);
+					ProcessBuilder pb = new ProcessBuilder("/bin/sh","-c",command);
 					pb.directory(new File(dir.getAbsolutePath()));
 					pb.redirectErrorStream(true);
 
@@ -152,7 +151,7 @@ public class MPIChecksum extends AbstractAction {
 							logger.debug("Calculate md5Checksum Command: " + calcCommand.toString());
 						}
 
-						ProcessBuilder calcPb = new ProcessBuilder(prefixCommand,calcCommand);
+						ProcessBuilder calcPb = new ProcessBuilder("/bin/sh","-c",calcCommand);
 						calcPb.directory(new File(dir.getAbsolutePath()));
 						calcPb.redirectErrorStream(true);
 
