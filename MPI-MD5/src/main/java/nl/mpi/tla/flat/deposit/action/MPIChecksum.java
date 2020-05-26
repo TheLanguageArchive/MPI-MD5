@@ -100,8 +100,10 @@ public class MPIChecksum extends AbstractAction {
 			for (Resource currentResource : resources) {
 				if (currentResource.hasFile()) {
 					File currentFile = currentResource.getFile();
+					String absPath = currentFile.getAbsolutePath();
+					absPath = absPath.replace(" ", "\\ ");
 					// execute command: ssh user@host '/opt/vsm/sbin/slssum "filepath"'
-					String command = "\"ssh " + login + " '" + sysCommand + " \\\"" + currentFile.getAbsolutePath() + "\\\"'\"";
+					String command = "\"ssh " + login + " " + sysCommand + "'" + absPath + "'\"";
 					logger.debug("Command: " + command.toString());
 
 					ProcessBuilder pb = new ProcessBuilder("/bin/sh","-c",command);
@@ -144,11 +146,11 @@ public class MPIChecksum extends AbstractAction {
 
 						String calcCommand;
 						if (StringUtils.isEmpty(fallbackLogin)) {
-							calcCommand = fallbackCommand + currentFile.getAbsolutePath();
-							logger.debug("New Calculate md5Checksum Command: " + calcCommand.toString());
+							calcCommand = fallbackCommand + absPath;
+							logger.debug("Local Calculate md5Checksum Command: " + calcCommand.toString());
 						} else {
-							calcCommand = "\"ssh " + fallbackLogin + " '" + fallbackCommand+ " \\\"" + currentFile.getAbsolutePath() + "\\\"'\"";
-							logger.debug("New Calculate md5Checksum Command: " + calcCommand.toString());
+							calcCommand = "\"ssh " + fallbackLogin + " " + fallbackCommand + "'" + absPath + "'\"";
+							logger.debug("Remote Calculate md5Checksum Command: " + calcCommand.toString());
 						}
 
 						ProcessBuilder calcPb = new ProcessBuilder("/bin/sh","-c",calcCommand);
