@@ -148,7 +148,7 @@ public class MPIChecksum extends AbstractAction {
 							logger.debug("Calculate md5Checksum Command: " + calcCommand.toString());
 						} else {
 							calcCommand = "\"ssh " + fallbackLogin + " '" + fallbackCommand+ " \\\"" + currentFile.getAbsolutePath() + "\\\"'\"";
-							logger.debug("Calculate md5Checksum Command: " + calcCommand.toString());
+							logger.debug("New Calculate md5Checksum Command: " + calcCommand.toString());
 						}
 
 						ProcessBuilder calcPb = new ProcessBuilder("/bin/sh","-c",calcCommand);
