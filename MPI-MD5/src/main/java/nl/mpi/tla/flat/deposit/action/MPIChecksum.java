@@ -146,7 +146,7 @@ public class MPIChecksum extends AbstractAction {
 
 						String calcCommand;
 						if (StringUtils.isEmpty(fallbackLogin)) {
-							calcCommand = fallbackCommand + " '" + absPath + "';
+							calcCommand = fallbackCommand + " '" + absPath + "'";
 							logger.debug("Local Calculate md5Checksum Command: " + calcCommand.toString());
 						} else {
 							// fallbackCommand workaround uses intermediate shell script to avoid quotation issues with processbuilder and ssh
