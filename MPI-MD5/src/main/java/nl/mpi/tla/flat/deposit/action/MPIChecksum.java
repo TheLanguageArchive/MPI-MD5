@@ -122,15 +122,14 @@ public class MPIChecksum extends AbstractAction {
 					int exitValue = process.waitFor();
 					logger.debug("Exit Value is " + exitValue);
 					logger.debug("Line Value is " + line);
-					if (exitValue != 0) {
-						logger.error("Command to fetch md5Checksum exited with non-zero value. Failed!");
-						br.close();
-						isr.close();
-						res = false;
-					} else if (StringUtils.isEmpty(line) || line.equals("00000000000000000000000000000000")) {
-						br.close();
-						isr.close();
+					if (exitValue != 0 || StringUtils.isEmpty(line) || line.equals("00000000000000000000000000000000")) {
+						if (exitValue != 0) {
+							logger.error("Command to fetch md5Checksum exited with non-zero value. Failed!");
+							logger.debug("Command to fetch md5Checksum !=0. Hence get the system checksum as fallback!");
+						}
 						// md5checksum is not present yet. hence calculate
+						br.close();
+						isr.close();
 
 						XdmNode fallback = (XdmNode) Saxon.xpathSingle(nChecksum, "/checksum/fallback");
 						String fallbackLogin;
