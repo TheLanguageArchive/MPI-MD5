@@ -122,7 +122,7 @@ public class MPIChecksum extends AbstractAction {
 					int exitValue = process.waitFor();
 					logger.debug("Exit Value is " + exitValue);
 					logger.debug("Line Value is " + line);
-					if (exitValue != 0 || StringUtils.isEmpty(line) || line.equals("00000000000000000000000000000000")) {
+					if (exitValue != 0 || StringUtils.isEmpty(line) || line.equals("File has no valid checksum or checksum is not yet set")) {
 						if (exitValue != 0) {
 							logger.error("Command to fetch md5Checksum exited with non-zero value. Failed!");
 							logger.debug("Command to fetch md5Checksum !=0. Hence get the system checksum as fallback!");
